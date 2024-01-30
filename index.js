@@ -1,6 +1,7 @@
 import dotenvFlow from 'dotenv-flow';
 import { ChatOpenAI } from '@langchain/openai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { StringOutputParser } from '@langchain/core/output_parsers';
 
 dotenvFlow.config();
 
@@ -11,9 +12,11 @@ const prompt = ChatPromptTemplate.fromMessages([
   ['user', '{input}'],
 ]);
 
-const chain = prompt.pipe(chatModel);
+const outputParser = new StringOutputParser();
 
-const result = await chain.invoke({
+const llmChain = prompt.pipe(chatModel).pipe(outputParser);
+
+const result = await llmChain.invoke({
   input: 'Create a quiz question about Berlin, Germany.',
 });
 
