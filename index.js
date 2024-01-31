@@ -10,8 +10,14 @@ const exampleQuestions = [
   'In what years did Manchester City won the Champions League?',
 ];
 
+const question =
+  exampleQuestions[Math.floor(Math.random() * exampleQuestions.length)];
+
+console.log('Question:', question);
+
 const response = await connect({
-  input: exampleQuestions[Math.floor(Math.random() * exampleQuestions.length)],
+  input: question,
+  verbose: false,
 });
 
-console.log(response);
+console.log('Answer:', response);

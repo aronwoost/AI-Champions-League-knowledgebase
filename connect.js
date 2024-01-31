@@ -4,7 +4,7 @@ import { StringOutputParser } from '@langchain/core/output_parsers';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { convert } from './convertHtmlTabelToCsv.js';
 
-export const connect = async ({ input }) => {
+export const connect = async ({ input, verbose = false }) => {
   const loader = new CheerioWebBaseLoader(
     'https://en.wikipedia.org/wiki/List_of_European_Cup_and_UEFA_Champions_League_finals',
     {
@@ -36,8 +36,9 @@ export const connect = async ({ input }) => {
   const csv = convert({ input: `<table>${text}</table>` });
 
   const chatModel = new ChatOpenAI({
+    // modelName: 'gpt-4',
     modelName: 'gpt-3.5-turbo',
-    verbose: true,
+    verbose,
   });
 
   const prompt = ChatPromptTemplate.fromMessages([
@@ -62,5 +63,5 @@ export const connect = async ({ input }) => {
   Input: ${input}`,
   });
 
-  console.log(result);
+  return result;
 };
