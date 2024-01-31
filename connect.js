@@ -1,11 +1,8 @@
-import dotenvFlow from 'dotenv-flow';
 import { ChatOpenAI } from '@langchain/openai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser } from '@langchain/core/output_parsers';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { convert } from './convertHtmlTabelToCsv.js';
-
-dotenvFlow.config();
 
 export const connect = async ({ input }) => {
   const loader = new CheerioWebBaseLoader(
