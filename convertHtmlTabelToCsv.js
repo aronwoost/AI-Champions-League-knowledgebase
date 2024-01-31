@@ -14,18 +14,20 @@ export const convert = ({ input }) => {
     // Get each column data
     let cols = $(rows[i]).find('td,th');
 
-    // console.log({ cols });
+    if (csv_data[0] && csv_data[0].length !== cols.length) {
+      continue;
+    }
 
     // Stores each csv row data
     let csvrow = [];
     for (let j = 0; j < cols.length; j++) {
       // Get the text data of each cell of
       // a row and push it to csvrow
-      csvrow.push($(cols[j]).text());
+      csvrow.push(`"${$(cols[j]).text()}"`);
     }
 
     // Combine each column value with comma
-    csv_data.push(csvrow.join(','));
+    csv_data.push(csvrow);
   }
   // Combine each row data with new line character
   csv_data = csv_data.join('\n');
