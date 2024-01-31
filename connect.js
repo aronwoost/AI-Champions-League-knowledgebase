@@ -3,6 +3,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser } from '@langchain/core/output_parsers';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
+import { convert } from './convertHtmlTabelToCsv.js';
 
 dotenvFlow.config();
 
@@ -35,11 +36,10 @@ export const connect = async ({ input }) => {
     .html()
     .replace(/(\r\n|\n|\r)/gm, '');
 
-  console.log(text.length);
+  const csv = convert({ input: `<table>${text}</table>` });
 
   const chatModel = new ChatOpenAI({
-    modelName: 'gpt-4',
-    // modelName: 'gpt-3.5-turbo',
+    modelName: 'gpt-3.5-turbo',
     verbose: true,
   });
 
@@ -56,10 +56,10 @@ export const connect = async ({ input }) => {
   const llmChain = prompt.pipe(chatModel).pipe(outputParser);
 
   const result = await llmChain.invoke({
-    input: `The context is a list of UEFA Champions League finals. Based on this list you answer questions.
+    input: `The context is a csv formated list of UEFA Champions League finals. Based on this list you answer questions.
 
   <context>
-  ${text}
+  ${csv}
   </context>
   
   Input: ${input}`,
