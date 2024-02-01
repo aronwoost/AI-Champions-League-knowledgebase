@@ -54,13 +54,15 @@ export const connect = async ({ input, verbose = false }) => {
   const llmChain = prompt.pipe(chatModel).pipe(outputParser);
 
   const result = await llmChain.invoke({
-    input: `The current date is ${new Date().toJSON()} .The context is a csv formated list of UEFA Champions League finals. Based the answer ONLY on this list.
+    input: `The current date is ${new Date().toJSON()} .The context is a csv
+formated list of UEFA Champions League finals. Based the answer ONLY on this
+list.
 
-  <context>
-  ${csv}
-  </context>
-  
-  Input: ${input}`,
+ <context>
+ ${csv}
+ </context>
+ 
+ Input: ${input}`,
   });
 
   return result;
