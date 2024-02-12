@@ -58,11 +58,11 @@ export const connect = async ({ input, verbose = false }) => {
 formated list of UEFA Champions League finals. Based the answer ONLY on this
 list.
 
- <context>
- ${csv}
- </context>
- 
- Input: ${input}`,
+<context>
+${csv}
+</context>
+
+Input: ${input}`,
   });
 
   return result;
