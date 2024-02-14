@@ -1,7 +1,7 @@
 # AI Champions League knowledgebase
 
 This OpenAI based knowledgebase answers questions about Champions League finals.
-It works by providing a [CSV file](./finals.csv) (taken from Wikipedia) with all finals.
+It works by providing a [CSV file](./finals.csv) ([taken from Wikipedia](https://en.wikipedia.org/wiki/List_of_European_Cup_and_UEFA_Champions_League_finals)) with all finals.
 
 This app has to visual interface, instead it's used by command line.
 
